@@ -22,18 +22,30 @@ var app = new Framework7({
 
 var $$ = Dom7;
 
+//Compile templates into javaScript functions
+var voteSheet = Template7.compile($$('#vote-sheet').html());
+
 var mainView = app.views.create('.view-main');
 
 var loginScreen = app.loginScreen.create({
     el: '.login-screen'
 });
 
-loginScreen.open();
+loginScreen.open();// for now
+
+//kwa sasa tuoneshe tu wagombea ila uhalisia inatakiwa waonekane baada ya kulogin
+
 
 $$('#btn-sign-in').on('click', function(){
    //Call login function
    app.login('#login-form');
 });
+
+//$$(document).on('page:init', '.page[data-name="home"]', function (e) {
+//    console.log("page loaded");
+//    app.getVoteSheet(); //Get vote sheet from server and load to the view.
+//});
+
 
 //Login function
 
@@ -52,6 +64,8 @@ app.login = function(formId){
         success: function (data, status, xhr){
             if(data.login_status === 'success'){
                 loginScreen.close(); //Login details are valid so closing login form.
+                
+                 app.getVoteSheet();
             }else {
                var toastBottom = app.toast.create({
                    text: 'Login failed, username or password is incorrect',
@@ -66,6 +80,21 @@ app.login = function(formId){
             console.log(errorThrouwn);
         }
         
+    });
+};
+
+//Get vote sheet
+app.getVoteSheet = function(){
+    app.request({
+        url: "http://localhost/election_panel/api.php?action=vote",
+        dataType: 'json',
+        success: function (data, status, xhr){
+            var html = voteSheet(data);
+            $$('#vote-sheet-content').html(html); 
+        },
+        error: function (xhr, textStatus, errorThrown){
+            console.log(errorThrown);
+        }
     });
 };
 

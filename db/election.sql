@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2018 at 08:25 PM
+-- Generation Time: Apr 19, 2018 at 11:03 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 5.6.34
 
@@ -58,6 +58,16 @@ CREATE TABLE `candidates` (
   `course_id` int(10) DEFAULT NULL,
   `batch_id` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `candidates`
+--
+
+INSERT INTO `candidates` (`id`, `election_period_id`, `position_id`, `student_id`, `faculty_id`, `course_id`, `batch_id`) VALUES
+(1, 1, 1, 3, NULL, NULL, NULL),
+(2, 1, 1, 4, NULL, NULL, NULL),
+(3, 1, 2, 5, 1, 1, 5),
+(4, 1, 3, 6, 1, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -150,9 +160,9 @@ CREATE TABLE `positions` (
 --
 
 INSERT INTO `positions` (`id`, `position_name`) VALUES
-(1, 'President'),
-(2, 'Senator'),
-(3, 'Faculty Representative');
+(1, 'Presidents'),
+(2, 'Senators'),
+(3, 'Faculty Representatives');
 
 -- --------------------------------------------------------
 
@@ -176,7 +186,11 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `admission_number`, `first_name`, `last_name`, `registration_date`, `faculty_id`, `course_id`, `batch_id`) VALUES
-(1, '13303003/T.15', 'JOYCE', 'KAPESA', '2015-11-30', 1, 1, 5);
+(1, '13303003/T.15', 'JOYCE', 'KAPESA', '2015-11-30', 1, 1, 5),
+(3, '13303001/T.15', 'BONIPHACE', 'MAFURU', '2015-11-30', 1, 1, 5),
+(4, '13303008/T.15', 'SITOGELWA', 'MGONGOLWA', '2015-11-30', 1, 1, 5),
+(5, '13303012/T.15', 'DEOGRATIUS', 'KIBAJI', '2015-11-30', 1, 1, 5),
+(6, '13303015/T.15', 'AMEDEUS', 'MINJA', '2015-11-30', 1, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -303,7 +317,7 @@ ALTER TABLE `batches`
 -- AUTO_INCREMENT for table `candidates`
 --
 ALTER TABLE `candidates`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -333,7 +347,7 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`

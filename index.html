@@ -42,11 +42,13 @@
                               </div>-->
 
                     <!-- Scrollable page content -->
-                    <div class="page-content">
-                        <p>Page content goes here</p>
-                        <!-- Link to another page -->
-                        <a href="/about/">About app</a>
+                    <div class="page-content" id="vote-sheet-content">
+
+                        <button id="btn-vote" class="button button-raised button-fill">Vote</button>
                     </div>
+
+
+
 
                     <div class="login-screen">
                         <div class="view">
@@ -78,10 +80,10 @@
                                             <ul>
                                                 <li><a href="#" class="item-link list-button" id="btn-sign-in">Sign In</a></li>
                                             </ul>
-<!--                                            <div class="block-footer">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                                <p><a href="#" class="close-login-screen">Close Login Screen</a></p>
-                                            </div>-->
+                                            <!--                                            <div class="block-footer">
+                                                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                                                            <p><a href="#" class="close-login-screen">Close Login Screen</a></p>
+                                                                                        </div>-->
                                         </div>
                                     </form>
                                 </div>
@@ -91,6 +93,34 @@
                 </div>
             </div>
         </div>
+
+        <script id="vote-sheet" type="text/template7">
+            {{#each this}}
+                <div class="card">
+                            <div class="card-header">{{@key}}</div>
+                            <div class="card-content card-content-padding">
+                                <div class="list media-list">
+                                    <ul>
+                                    {{#each this}}
+                                        <li>
+                                            <div class="item-content">
+                                                <div class="item-media"><img src="images/president.jpg" width="44"/></div>
+                                                <div class="item-inner">
+                                                    <div class="item-title-row">
+                                                        <div class="item-title">{{this}}</div>
+                                                    </div>
+                                                    <div class="item-subtitle">Beatles</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+        </script>
+
         <!-- Path to Framework7 Library JS-->
         <script src="js/framework7.js" type="text/javascript"></script>
         <!-- Path to your app js-->
