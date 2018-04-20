@@ -1,11 +1,12 @@
 
-/*.page-content {
+.page-content {
     background-color: #ddd;
-}*/
+}
 
 #btn-vote {
-    width: 95%;
+    width: 96%;
     margin: 8px;
+    margin-top: 16px;
     box-sizing: border-box;
 }
 
