@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2018 at 11:03 PM
+-- Generation Time: Apr 21, 2018 at 08:05 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 5.6.34
 
@@ -66,8 +66,11 @@ CREATE TABLE `candidates` (
 INSERT INTO `candidates` (`id`, `election_period_id`, `position_id`, `student_id`, `faculty_id`, `course_id`, `batch_id`) VALUES
 (1, 1, 1, 3, NULL, NULL, NULL),
 (2, 1, 1, 4, NULL, NULL, NULL),
-(3, 1, 2, 5, 1, 1, 5),
-(4, 1, 3, 6, 1, 1, 5);
+(3, 1, 2, 8, 1, 1, 5),
+(4, 1, 3, 6, 1, 1, 5),
+(5, 1, 1, 5, NULL, NULL, NULL),
+(6, 1, 3, 7, 1, 1, 5),
+(7, 1, 2, 9, 1, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -101,8 +104,40 @@ INSERT INTO `courses` (`id`, `course_name`, `years_to_complete`, `faculty_id`) V
 (13, 'BBA-PLM', 3, 4),
 (14, 'BAF-PS', 3, 4),
 (15, 'BAF-BS', 3, 4),
-(16, 'PND', 3, 3),
-(17, 'PPM', 3, 3);
+(16, 'P&D', 3, 3),
+(17, 'PPM', 3, 3),
+(18, 'BPA-RAM', 3, 5),
+(19, 'BPA', 3, 5),
+(20, 'BECA', 3, 3),
+(21, 'BEEM', 3, 3),
+(22, 'BELM', 3, 3),
+(23, 'BLGM', 3, 5),
+(24, 'EDU(MIST)', 3, 1),
+(25, 'EPP', 3, 3),
+(26, 'CICT', 1, 1),
+(27, 'CLIM', 1, 1),
+(28, 'CL', 1, 2),
+(29, 'CLGM', 1, 5),
+(30, 'DIT', 2, 1),
+(31, 'DAS', 2, 1),
+(41, 'LL.M-CL', 2, 2),
+(42, 'LLB', 3, 2),
+(43, 'MA-EDU', 2, 3),
+(44, 'MBA-CM', 2, 4),
+(45, 'MHSM', 2, 5),
+(46, 'MPA', 2, 3),
+(47, 'MRPP', 2, 3),
+(48, 'MSc.A&E', 2, 3),
+(49, 'MSc.DP', 2, 3),
+(50, 'MSc.ECON', 2, 3),
+(51, 'MSc.EM', 2, 3),
+(52, 'MSc.ENTER', 2, 3),
+(53, 'MSc.EPP', 2, 3),
+(54, 'MSc.HME', 2, 5),
+(55, 'MSc.HRM', 2, 5),
+(56, 'MSc.MKT', 2, 4),
+(57, 'MSc.PPM', 2, 3),
+(58, 'MSc.PSCM', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -172,25 +207,35 @@ INSERT INTO `positions` (`id`, `position_name`) VALUES
 
 CREATE TABLE `students` (
   `id` int(10) NOT NULL,
-  `admission_number` varchar(255) NOT NULL,
+  `Registration_number` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
-  `registration_date` date NOT NULL,
+  `Admission_date` date NOT NULL,
   `faculty_id` int(10) NOT NULL,
   `course_id` int(10) NOT NULL,
-  `batch_id` int(10) NOT NULL
+  `batch_id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `admission_number`, `first_name`, `last_name`, `registration_date`, `faculty_id`, `course_id`, `batch_id`) VALUES
-(1, '13303003/T.15', 'JOYCE', 'KAPESA', '2015-11-30', 1, 1, 5),
-(3, '13303001/T.15', 'BONIPHACE', 'MAFURU', '2015-11-30', 1, 1, 5),
-(4, '13303008/T.15', 'SITOGELWA', 'MGONGOLWA', '2015-11-30', 1, 1, 5),
-(5, '13303012/T.15', 'DEOGRATIUS', 'KIBAJI', '2015-11-30', 1, 1, 5),
-(6, '13303015/T.15', 'AMEDEUS', 'MINJA', '2015-11-30', 1, 1, 5);
+INSERT INTO `students` (`id`, `Registration_number`, `first_name`, `last_name`, `Admission_date`, `faculty_id`, `course_id`, `batch_id`, `user_id`) VALUES
+(1, '13303003/T.15', 'JOYCE', 'KAPESA', '2015-11-30', 1, 1, 5, 1),
+(3, '13303001/T.15', 'BONIPHACE', 'MAFURU', '2015-11-30', 1, 1, 5, 2),
+(4, '13303008/T.15', 'SITOGELWA', 'MGONGOLWA', '2015-11-30', 1, 1, 5, 3),
+(5, '13303012/T.15', 'DEOGRATIUS', 'KIBAJI', '2015-11-30', 1, 1, 5, 4),
+(6, '13303015/T.15', 'AMEDEUS', 'MINJA', '2015-11-30', 1, 1, 5, 5),
+(7, '13303043/T.15', 'HALIMA', 'MAPANDE', '2015-11-30', 1, 1, 5, 6),
+(8, '13303037/T.15', 'EMMANUEL ', 'LAWTON', '2015-11-30', 1, 1, 5, 10),
+(9, '13303017/T.15', 'EMMANUEL', 'SIMBA', '2015-11-30', 1, 1, 5, 11),
+(10, '13303005/T.15', 'GEORGE', 'FELIX', '2015-11-30', 1, 1, 5, 12),
+(11, '13303002/T.15', 'SAID', 'RASHID', '2015-11-30', 1, 1, 5, 13),
+(12, '13306034/T.15', 'IRENE', 'MVUNGI', '2015-11-30', 1, 4, 5, 14),
+(13, '13306026/t.15', 'CHRISTERBERRY', 'SHIGELA', '2015-11-30', 1, 4, 5, 14),
+(14, '12345678/T.16', 'ZABIBU', 'MACHUNGWA', '2016-12-26', 4, 10, 4, 15),
+(15, '15274893/T.16', 'HALIMA', 'MARINGO', '2016-12-26', 5, 9, 4, 16);
 
 -- --------------------------------------------------------
 
@@ -201,18 +246,30 @@ INSERT INTO `students` (`id`, `admission_number`, `first_name`, `last_name`, `re
 CREATE TABLE `users` (
   `id` int(10) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `faculty_id` int(10) NOT NULL,
-  `student_id` int(10) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `faculty_id`, `student_id`, `created_at`) VALUES
-(2, 'joy', '123456', 1, 1, '2018-04-18 21:09:20');
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+(1, 'joy', '123456'),
+(2, 'student1', 'student1'),
+(3, 'student2', 'student2'),
+(4, 'student3', 'student3'),
+(5, 'student4', 'student4'),
+(6, 'admin', 'admin'),
+(10, 'student5', 'student5'),
+(11, 'student6', 'student6'),
+(12, 'student7', 'student7'),
+(13, 'student8', 'student8'),
+(14, 'student9', 'student9'),
+(15, 'student10', 'student10'),
+(16, 'student11', 'student11'),
+(17, 'student12', 'student12'),
+(18, 'student13', 'student13'),
+(19, 'student14', 'student14');
 
 -- --------------------------------------------------------
 
@@ -225,8 +282,30 @@ CREATE TABLE `votes` (
   `user_id` int(10) NOT NULL,
   `positon_id` int(10) NOT NULL,
   `election_period_id` int(10) NOT NULL,
+  `candidate_id` int(10) NOT NULL,
   `voted_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `votes`
+--
+
+INSERT INTO `votes` (`id`, `user_id`, `positon_id`, `election_period_id`, `candidate_id`, `voted_at`) VALUES
+(4, 1, 1, 1, 1, '2018-04-21 20:37:50'),
+(5, 1, 2, 1, 3, '2018-04-21 20:37:50'),
+(6, 1, 3, 1, 4, '2018-04-21 20:37:50'),
+(7, 2, 1, 1, 2, '2018-04-21 20:39:12'),
+(8, 2, 2, 1, 7, '2018-04-21 20:39:12'),
+(9, 2, 3, 1, 4, '2018-04-21 20:39:12'),
+(10, 3, 1, 1, 1, '2018-04-21 20:59:31'),
+(11, 3, 2, 1, 3, '2018-04-21 20:59:31'),
+(12, 3, 3, 1, 6, '2018-04-21 20:59:31'),
+(13, 4, 1, 1, 1, '2018-04-21 21:00:24'),
+(14, 4, 2, 1, 3, '2018-04-21 21:00:24'),
+(15, 4, 3, 1, 4, '2018-04-21 21:00:24'),
+(16, 5, 1, 1, 1, '2018-04-21 21:01:11'),
+(17, 5, 2, 1, 7, '2018-04-21 21:01:11'),
+(18, 5, 3, 1, 6, '2018-04-21 21:01:11');
 
 --
 -- Indexes for dumped tables
@@ -283,16 +362,15 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id`),
   ADD KEY `faculty_id` (`faculty_id`),
   ADD KEY `batch_id` (`batch_id`),
-  ADD KEY `course_id` (`course_id`);
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `students_ibfk_4` (`user_id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD KEY `faculty_id` (`faculty_id`),
-  ADD KEY `student_id` (`student_id`);
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `votes`
@@ -301,7 +379,8 @@ ALTER TABLE `votes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `positon_id` (`positon_id`),
-  ADD KEY `election_period_id` (`election_period_id`);
+  ADD KEY `election_period_id` (`election_period_id`),
+  ADD KEY `votes_ibfk_4` (`candidate_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -317,13 +396,13 @@ ALTER TABLE `batches`
 -- AUTO_INCREMENT for table `candidates`
 --
 ALTER TABLE `candidates`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `election_period`
@@ -341,25 +420,25 @@ ALTER TABLE `faculties`
 -- AUTO_INCREMENT for table `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `votes`
 --
 ALTER TABLE `votes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
@@ -394,22 +473,17 @@ ALTER TABLE `courses`
 ALTER TABLE `students`
   ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `students_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `students_ibfk_3` FOREIGN KEY (`faculty_id`) REFERENCES `faculties` (`id`);
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `students_ibfk_3` FOREIGN KEY (`faculty_id`) REFERENCES `faculties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `students_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `votes`
 --
 ALTER TABLE `votes`
   ADD CONSTRAINT `votes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`positon_id`) REFERENCES `positions` (`id`),
-  ADD CONSTRAINT `votes_ibfk_3` FOREIGN KEY (`election_period_id`) REFERENCES `election_period` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `votes_ibfk_2` FOREIGN KEY (`positon_id`) REFERENCES `positions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `votes_ibfk_3` FOREIGN KEY (`election_period_id`) REFERENCES `election_period` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `votes_ibfk_4` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
