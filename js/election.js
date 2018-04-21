@@ -19,13 +19,25 @@ var app = new Framework7({
 //    ]
 // ... other parameters
 });
+
+
 var $$ = Dom7;
+
+//Custom template helpers
+Template7.registerHelper("removeSpace", function (str) {
+    return str.replace(" ", "_");
+});
+
 //Compile templates into javaScript functions
 var voteSheet = Template7.compile($$('#vote-sheet').html());
 var mainView = app.views.create('.view-main');
 var loginScreen = app.loginScreen.create({
     el: '.login-screen'
 });
+
+
+
+
 //loginScreen.open();// for now
 
 //kwa sasa tuoneshe tu wagombea ila uhalisia inatakiwa waonekane baada ya kulogin
@@ -80,6 +92,8 @@ app.getVoteSheet = function () {
         },
         error: function (xhr, textStatus, errorThrown) {
             console.log(errorThrown);
+            console.log(xhr);
+            console.log(textStatus);
         }
     });
 };
@@ -89,9 +103,28 @@ app.castVotes = function () {
         url: 'http://localhost/election_panel/api.php?action=cast_votes',
         dataType: 'json',
         success: function (data, status, xhr) {
+            if (data.cast_status === "success") {
+                var toastBottom = app.toast.create({
+                    text: 'Thank you. Votes casted successfully!',
+                    position: 'bottom',
+                    closeTimeout: 6000
+                });
+                toastBottom.open();
+            } else {
+                $$('#btn-vote').show(); // Since the vote was not succeffully, enable vote button
+                
+                var toastBottom = app.toast.create({
+                    text: "Can't cast votes please try again later.",
+                    position: 'bottom',
+                    closeTimeout: 6000
+                });
+                toastBottom.open();
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
             console.log(errorThrown);
+            console.log(textStatus);
+            console.log(xhr);
         }
     });
 };
@@ -101,6 +134,7 @@ function onHomeInit() {
     app.getVoteSheet();
 
     $$(document).on('click', '#btn-vote', function (e) {
+        $$(this).hide();//remove vote buttono so a user can't vote more than once
         app.castVotes();
 //        console.log(JSON.stringify(form));
     });
