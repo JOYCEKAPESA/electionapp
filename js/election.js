@@ -38,11 +38,6 @@ var loginScreen = app.loginScreen.create({
 
 
 
-//loginScreen.open();// for now
-
-//kwa sasa tuoneshe tu wagombea ila uhalisia inatakiwa waonekane baada ya kulogin
-
-
 $$('#btn-sign-in').on('click', function () {
 //Call login function
     app.login('#login-form');
@@ -63,9 +58,10 @@ app.login = function (formId) {
         },
         success: function (data, status, xhr) {
             if (data.login_status === 'success') {
+                localStorage.election = JSON.stringify(data); //Store user login details
                 loginScreen.close(); //Login details are valid so closing login form.
 
-//                 app.getVoteSheet();
+                app.getVoteSheet();
             } else {
                 var toastBottom = app.toast.create({
                     text: 'Login failed, username or password is incorrect',
@@ -83,8 +79,14 @@ app.login = function (formId) {
 };
 //Get vote sheet
 app.getVoteSheet = function () {
+
+    var login_details = JSON.parse(localStorage.election);
+    var faculty_id = login_details.faculty_id;
+    var course_id = login_details.course_id;
+    var batch_id = login_details.batch_id;
+    
     app.request({
-        url: "http://localhost/election_panel/api.php?action=vote_sheet",
+        url: "http://localhost/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&course_id=' + course_id + '&batch_id=' + batch_id,
         dataType: 'json',
         success: function (data, status, xhr) {
             var html = voteSheet(data);
@@ -97,10 +99,16 @@ app.getVoteSheet = function () {
         }
     });
 };
+
 app.castVotes = function () {
+    //Get user details from local storage
+
+    var login_details = JSON.parse(localStorage.election);
+    var user_id = login_details.user_id;
+
     app.request({
         data: app.form.convertToData('#vote-form'), //get votes
-        url: 'http://localhost/election_panel/api.php?action=cast_votes',
+        url: 'http://localhost/election_panel/api.php?action=cast_votes&user_id=' + user_id,
         dataType: 'json',
         success: function (data, status, xhr) {
             if (data.cast_status === "success") {
@@ -112,7 +120,7 @@ app.castVotes = function () {
                 toastBottom.open();
             } else {
                 $$('#btn-vote').show(); // Since the vote was not succeffully, enable vote button
-                
+
                 var toastBottom = app.toast.create({
                     text: "Can't cast votes please try again later.",
                     position: 'bottom',
@@ -131,7 +139,22 @@ app.castVotes = function () {
 
 
 function onHomeInit() {
-    app.getVoteSheet();
+//    app.getVoteSheet();
+
+//Check if a user is already logged in
+    if (localStorage.election) {
+//        var login_details = JSON.parse(localStorage.election) //get ligin details from web storage
+//        if (login_details.login_status === 'success') {
+        //user is logged in, show candidates
+        app.getVoteSheet();
+//        } else {
+//          
+//        }
+    } else {
+        //User not logged in
+        loginScreen.open(); //Show login screen
+    }
+
 
     $$(document).on('click', '#btn-vote', function (e) {
         $$(this).hide();//remove vote buttono so a user can't vote more than once
@@ -139,7 +162,6 @@ function onHomeInit() {
 //        console.log(JSON.stringify(form));
     });
 }
-;
 app.on('pageInit', function (page) {
     if (page.name === 'index')
         onHomeInit();
