@@ -89,6 +89,7 @@ app.getVoteSheet = function () {
         url: "http://localhost/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&course_id=' + course_id + '&batch_id=' + batch_id,
         dataType: 'json',
         success: function (data, status, xhr) {
+            console.log(data);
             var html = voteSheet(data);
             $$('#vote-sheet-content').html(html);
         },
@@ -110,7 +111,7 @@ app.castVotes = function () {
         data: app.form.convertToData('#vote-form'), //get votes
         url: 'http://localhost/election_panel/api.php?action=cast_votes&user_id=' + user_id,
         dataType: 'json',
-        success: function (data, status, xhr) {
+        success: function (data, status, xhr) { 
             if (data.cast_status === "success") {
                 var toastBottom = app.toast.create({
                     text: 'Thank you. Votes casted successfully!',
