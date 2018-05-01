@@ -111,13 +111,17 @@
                                                              <div class="item-after">
                                                              <label class="radio" class="radio-vote">
                                                                 <!-- radio input -->
-                                                             <input name='{{removeSpace ../@key}}' type="radio" value="{{candidate_id}}">
+                                                             <input name='votes[{{removeSpace ../@key}}]' type="radio" value="{{candidate_id}}">
                                                              <!-- radio icon -->
                                                                <i class="icon-radio"></i>
                                                                 </label>
                                                              </div>
                                                     </div>
-                                                    <div class="item-subtitle">Beatles</div>
+                                                    <div class="item-subtitle">
+<!--                                                    <div class="progressbar" data-progress="60">
+                                                     <span></span>
+                                                     </div>-->
+                                                    Votes: {{num_votes}}</div>
 
                                                     <!-- radio element -->
 
