@@ -82,11 +82,10 @@ app.getVoteSheet = function () {
 
     var login_details = JSON.parse(localStorage.election);
     var faculty_id = login_details.faculty_id;
-    var course_id = login_details.course_id;
     var batch_id = login_details.batch_id;
     
     app.request({
-        url: "http://localhost/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&course_id=' + course_id + '&batch_id=' + batch_id,
+        url: "http://localhost/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&batch_id=' + batch_id,
         dataType: 'json',
         success: function (data, status, xhr) {
             console.log(data);
