@@ -83,13 +83,19 @@ app.getVoteSheet = function () {
     var login_details = JSON.parse(localStorage.election);
     var faculty_id = login_details.faculty_id;
     var batch_id = login_details.batch_id;
-    
+    var user_id = login_details.user_id;
+
     app.request({
-        url: "http://localhost/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&batch_id=' + batch_id,
+        url: "http://localhost/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&batch_id=' + batch_id + '&user_id=' + user_id,
         dataType: 'json',
         success: function (data, status, xhr) {
-            console.log(data);
+            console.log(data.candidates);
             var html = voteSheet(data);
+
+            //if user has voted disable vote button and radio buttons
+//            if (data.user_has_voted) {
+//                html.find(".button");
+//            }
             $$('#vote-sheet-content').html(html);
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -110,7 +116,7 @@ app.castVotes = function () {
         data: app.form.convertToData('#vote-form'), //get votes
         url: 'http://localhost/election_panel/api.php?action=cast_votes&user_id=' + user_id,
         dataType: 'json',
-        success: function (data, status, xhr) { 
+        success: function (data, status, xhr) {
             if (data.cast_status === "success") {
                 var toastBottom = app.toast.create({
                     text: 'Thank you. Votes casted successfully!',

@@ -96,7 +96,7 @@
 
         <script id="vote-sheet" type="text/template7">
             <form id="vote-form">
-            {{#each this}}
+            {{#each candidates}}
                 <div class="card">
                             <div class="card-header">{{@key}}</div>
                                 <div class="list media-list">
@@ -111,10 +111,12 @@
                                                              <div class="item-after">
                                                              <label class="radio" class="radio-vote">
                                                                 <!-- radio input -->
+                                                              
                                                              <input name='votes[{{removeSpace ../@key}}]' type="radio" value="{{candidate_id}}">
+                                                             
                                                              <!-- radio icon -->
                                                                <i class="icon-radio"></i>
-                                                                </label>
+                                                                <z/label>
                                                              </div>
                                                     </div>
                                                     <div class="item-subtitle">
@@ -135,7 +137,11 @@
                         </div>
                         {{/each}}
                         </form>
-                        <button id="btn-vote" class="button button-raised button-fill">Vote</button>
+                        
+                       {{#unless user_has_voted}}
+                             <button id="btn-vote" class="button button-raised button-fill">Vote</button>
+                      {{/unless}}
+                       
         </script>
 
         <!-- Path to Framework7 Library JS-->
