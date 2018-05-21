@@ -90,12 +90,8 @@ app.getVoteSheet = function () {
         dataType: 'json',
         success: function (data, status, xhr) {
             console.log(data.candidates);
+            console.log(data.user_has_voted);
             var html = voteSheet(data);
-
-            //if user has voted disable vote button and radio buttons
-//            if (data.user_has_voted) {
-//                html.find(".button");
-//            }
             $$('#vote-sheet-content').html(html);
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -124,6 +120,7 @@ app.castVotes = function () {
                     closeTimeout: 6000
                 });
                 toastBottom.open();
+                $$(".radio").css("visibility", "hidden"); // Hide all radio when a user has voted
             } else {
                 $$('#btn-vote').show(); // Since the vote was not succeffully, enable vote button
 

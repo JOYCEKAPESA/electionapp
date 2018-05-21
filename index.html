@@ -109,20 +109,21 @@
                                                     <div class="item-title-row">
                                                         <div class="item-title">{{full_name}}</div>
                                                              <div class="item-after">
-                                                             <label class="radio" class="radio-vote">
-                                                                <!-- radio input -->
+                                                             
+                                                            
+                                                             <label {{#if ../../user_has_voted}}  style='visibility: hidden;' {{/if}}  class="radio" class="radio-vote">
+                                                  
                                                               
                                                              <input name='votes[{{removeSpace ../@key}}]' type="radio" value="{{candidate_id}}">
                                                              
-                                                             <!-- radio icon -->
+                                                
                                                                <i class="icon-radio"></i>
-                                                                <z/label>
+                                                                </label>
+                                                                
+                                                                 
                                                              </div>
                                                     </div>
                                                     <div class="item-subtitle">
-<!--                                                    <div class="progressbar" data-progress="60">
-                                                     <span></span>
-                                                     </div>-->
                                                     Votes: {{num_votes}}</div>
 
                                                     <!-- radio element -->
