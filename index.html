@@ -29,6 +29,9 @@
                     <div class="navbar">
                         <div class="navbar-inner">
                             <div class="title">Election</div>
+                            <div class="right">
+                                <!--<button class="col button button-outline" id="btn-reload">Reload</button>-->
+                                <button class="col button button-outline" id="btn-logout">Logout</button></div>
                         </div>
                     </div>
 
@@ -44,10 +47,10 @@
                     <!-- Scrollable page content -->
                     <div class="page-content" id="vote-sheet-content">
 
-                        
+
                     </div>
-                    
-                    
+
+
                     <div class="login-screen">
                         <div class="view">
                             <div class="page no-navbar no-toolbar no-swipeback election-login">
@@ -95,52 +98,52 @@
         <script id="vote-sheet" type="text/template7">
             <form id="vote-form">
             {{#each candidates}}
-                <div class="card">
-                            <div class="card-header">{{@key}}</div>
-                                <div class="list media-list">
-                                    <ul>
-                                    {{#each this}}
-                                        <li>
-                                            <div class="item-content">
-                                                <div class="item-media"><img src="images/president.jpg" width="44"/></div>
-                                                <div class="item-inner">
-                                                    <div class="item-title-row">
-                                                        <div class="item-title">{{full_name}}</div>
-                                                             <div class="item-after">
-                                                             
-                                                            
-                                                             <label {{#if ../../user_has_voted}}  style='visibility: hidden;' {{/if}}  class="radio" class="radio-vote">
-                                                  
-                                                              
-                                                             <input name='votes[{{removeSpace ../@key}}]' type="radio" value="{{candidate_id}}">
-                                                             
-                                                
-                                                               <i class="icon-radio"></i>
-                                                                </label>
-                                                                
-                                                                 
-                                                             </div>
-                                                    </div>
-                                                    <div class="item-subtitle">
-                                                    Votes: {{num_votes}}</div>
+            <div class="card">
+            <div class="card-header">{{@key}}</div>
+            <div class="list media-list">
+            <ul>
+            {{#each this}}
+            <li>
+            <div class="item-content">
+            <div class="item-media"><img src="images/president.jpg" width="44"/></div>
+            <div class="item-inner">
+            <div class="item-title-row">
+            <div class="item-title">{{full_name}}</div>
+            <div class="item-after">
 
-                                                    <!-- radio element -->
 
-                                                </div>
-                                            </div>
-                                        </li>
-                                        {{/each}}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        {{/each}}
-                        </form>
-                        
-                       {{#unless user_has_voted}}
-                             <button id="btn-vote" class="button button-raised button-fill">Vote</button>
-                      {{/unless}}
-                       
+            <label {{#if ../../user_has_voted}}  style='visibility: hidden;' {{/if}}  class="radio" class="radio-vote">
+
+
+            <input name='votes[{{removeSpace ../@key}}]' type="radio" value="{{candidate_id}}">
+
+
+            <i class="icon-radio"></i>
+            </label>
+
+
+            </div>
+            </div>
+            <div class="item-subtitle">
+            Votes: {{num_votes}} of {{total_votes}}</div>
+
+            <!-- radio element -->
+
+            </div>
+            </div>
+            </li>
+            {{/each}}
+            </ul>
+            </div>
+            </div>
+            </div>
+            {{/each}}
+            </form>
+
+            {{#unless user_has_voted}}
+            <button id="btn-vote" class="button button-raised button-fill">Vote</button>
+            {{/unless}}
+
         </script>
 
         <!-- Path to Framework7 Library JS-->

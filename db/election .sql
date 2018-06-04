@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2018 at 09:21 PM
+-- Generation Time: Jun 02, 2018 at 10:26 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 5.6.34
 
@@ -66,11 +66,14 @@ INSERT INTO `candidates` (`id`, `election_period_id`, `position_id`, `student_id
 (1, 1, 1, 3, NULL, NULL),
 (2, 1, 1, 4, NULL, NULL),
 (3, 1, 2, 1, 1, NULL),
+(4, 1, 3, 11, 4, 4),
+(5, 1, 1, 10, NULL, NULL),
 (6, 1, 3, 7, 3, 5),
 (7, 1, 3, 9, 3, 3),
 (9, 1, 2, 5, 1, NULL),
 (10, 1, 2, 8, 3, NULL),
 (11, 1, 2, 14, 5, NULL),
+(12, 1, 2, 12, 4, NULL),
 (16, 1, 3, 6, 2, 3),
 (17, 1, 3, 13, 1, 5),
 (18, 1, 3, 15, 1, 5),
@@ -234,21 +237,25 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`id`, `reg_number`, `first_name`, `last_name`, `admission_date`, `faculty_id`, `course_id`, `batch_id`, `user_id`) VALUES
 (1, '13303003/T.15', 'JOYCE', 'KAPESA', '2015-11-30', 1, 1, 5, 1),
-(2, '15290371/T.17', 'JACKLINE ', 'KAAYA', '2017-11-30', 3, 17, 3, 18),
-(3, '13303001/T.15', 'BONIPHACE', 'MAFURU', '2017-11-30', 1, 1, 3, 2),
-(4, '13303008/T.15', 'STOGELWA', 'MGONGOLWA', '2015-11-30', 2, 42, 5, 3),
-(5, '13303012/T.16', 'DEOGRATIUS', 'KIBAJI', '2016-11-30', 2, 42, 4, 4),
+(2, '15290371/T.17', 'JACKLINE ', 'KAAYA', '2017-11-30', 1, 1, 5, 18),
+(3, '13303001/T.15', 'BONIPHACE', 'MAFURU', '2017-11-30', 1, 1, 5, 2),
+(4, '13303008/T.15', 'STOGELWA', 'MGONGOLWA', '2015-11-30', 1, 1, 5, 3),
+(5, '13303012/T.16', 'DEOGRATIUS', 'KIBAJI', '2016-11-30', 1, 1, 5, 4),
 (6, '13303015/T.17', 'AMEDEUS', 'MINJA', '2017-11-30', 2, 42, 3, 5),
 (7, '13303043/T.15', 'HALIMA', 'MAPANDE', '2015-11-30', 3, 21, 5, 6),
 (8, '13303037/T.16', 'EMMANUEL ', 'LAWTON', '2016-11-30', 3, 20, 4, 10),
 (9, '13303017/T.17', 'EMMANUEL', 'SIMBA', '2017-11-30', 3, 22, 3, 11),
+(10, '13303005/T.15', 'GEORGE', 'FELIX', '2015-11-30', 4, 15, 5, 12),
+(11, '13303002/T.16', 'SAID', 'RASHID', '2016-11-30', 4, 12, 4, 13),
+(12, '13306034/T.17', 'IRENE', 'MVUNGI', '2017-11-30', 4, 10, 3, 14),
 (13, '13306026/T.16', 'CHRISTERBERRY', 'SHIGELA', '2016-11-30', 1, 4, 4, 8),
 (14, '12345678/T.15', 'ZABIBU', 'MACHUNGWA', '2015-11-30', 5, 18, 5, 15),
 (15, '15274893/T.16', 'HALIMA', 'MARINGO', '2016-11-30', 5, 9, 4, 16),
 (16, '1302122/T.15', 'NICHOLAUS', 'MOKOKI', '2015-11-30', 4, 12, 5, 7),
 (17, '12397403/T.17', 'JANETH', 'KYEJUMBA', '2017-11-30', 5, 8, 3, 19),
 (18, '1302132/T.15', 'JONES', 'NJELEKELA', '2015-11-30', 1, 24, 5, 9),
-(19, '1302129/T.16', 'IDDI', 'MAHUNDA', '2016-11-30', 5, 19, 4, 17);
+(19, '1302129/T.16', 'IDDI', 'MAHUNDA', '2016-11-30', 5, 19, 4, 17),
+(20, '13303025/T.15', 'FLORENCE', 'ESAU', '2017-11-30', 1, 1, 3, 20);
 
 -- --------------------------------------------------------
 
@@ -278,11 +285,15 @@ INSERT INTO `users` (`id`, `username`, `password`) VALUES
 (9, 'student17', 'student17'),
 (10, 'student5', 'student5'),
 (11, 'student6', 'student6'),
+(12, 'student7', 'student7'),
+(13, 'student8', 'student8'),
+(14, 'student9', 'student9'),
 (15, 'student10', 'student10'),
 (16, 'student11', 'student11'),
 (17, 'student12', 'student12'),
 (18, 'student13', 'student13'),
-(19, 'student14', 'student14');
+(19, 'student14', 'student14'),
+(20, 'student18', 'student18');
 
 -- --------------------------------------------------------
 
@@ -298,6 +309,21 @@ CREATE TABLE `votes` (
   `candidate_id` int(10) NOT NULL,
   `voted_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `votes`
+--
+
+INSERT INTO `votes` (`id`, `user_id`, `positon_id`, `election_period_id`, `candidate_id`, `voted_at`) VALUES
+(1, 1, 1, 1, 1, '2018-06-01 10:28:31'),
+(2, 1, 2, 1, 3, '2018-06-01 10:28:31'),
+(3, 1, 3, 1, 17, '2018-06-01 10:28:31'),
+(4, 2, 1, 1, 1, '2018-06-01 20:35:57'),
+(5, 2, 3, 1, 18, '2018-06-01 20:35:57'),
+(6, 2, 2, 1, 3, '2018-06-01 20:35:57'),
+(7, 4, 1, 1, 1, '2018-06-01 20:54:40'),
+(8, 4, 2, 1, 9, '2018-06-01 20:54:40'),
+(9, 4, 3, 1, 17, '2018-06-01 20:54:40');
 
 --
 -- Indexes for dumped tables
@@ -417,19 +443,19 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `votes`
 --
 ALTER TABLE `votes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

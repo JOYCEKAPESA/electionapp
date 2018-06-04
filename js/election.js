@@ -51,7 +51,7 @@ app.login = function (formId) {
             username: $$(formId).find('#username').val(),
             password: $$(formId).find('#password').val()
         },
-        url: "http://localhost/election_panel/api.php?action=login",
+        url: "http://192.168.43.66/election_panel/api.php?action=login",
         dataType: 'json',
         method: 'GET',
         beforeSend: function (xhr) {
@@ -86,7 +86,7 @@ app.getVoteSheet = function () {
     var user_id = login_details.user_id;
 
     app.request({
-        url: "http://localhost/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&batch_id=' + batch_id + '&user_id=' + user_id,
+        url: "http://192.168.43.66/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&batch_id=' + batch_id + '&user_id=' + user_id,
         dataType: 'json',
         success: function (data, status, xhr) {
             console.log(data.candidates);
@@ -110,7 +110,7 @@ app.castVotes = function () {
 
     app.request({
         data: app.form.convertToData('#vote-form'), //get votes
-        url: 'http://localhost/election_panel/api.php?action=cast_votes&user_id=' + user_id,
+        url: 'http://192.168.43.66/election_panel/api.php?action=cast_votes&user_id=' + user_id,
         dataType: 'json',
         success: function (data, status, xhr) {
             if (data.cast_status === "success") {
@@ -164,6 +164,12 @@ function onHomeInit() {
         app.castVotes();
 //        console.log(JSON.stringify(form));
     });
+
+    $$('#btn-logout').on('click', function () {
+          localStorage.removeItem('election');
+          loginScreen.open(); //Show login screen
+    });
+
 }
 app.on('pageInit', function (page) {
     if (page.name === 'index')
