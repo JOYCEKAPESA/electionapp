@@ -31,17 +31,54 @@ Template7.registerHelper("removeSpace", function (str) {
 //Compile templates into javaScript functions
 var voteSheet = Template7.compile($$('#vote-sheet').html());
 var mainView = app.views.create('.view-main');
+
 var loginScreen = app.loginScreen.create({
     el: '.login-screen'
 });
-
-
 
 
 $$('#btn-sign-in').on('click', function () {
 //Call login function
     app.login('#login-form');
 });
+
+
+//Reset password function
+app.resetPassword = function (userId, newPassword) {
+    app.request({
+        data: {
+            userId: userId,
+            password: newPassword
+        },
+        url: "http://localhost/election_panel/api.php?action=reset",
+        dataType: 'json',
+        method: 'GET',
+        success: function (data, status, xhr) {
+            if (data.reset) {
+                app.getVoteSheet();
+
+                var toastBottom = app.toast.create({
+                    text: 'Password changed',
+                    position: 'bottom',
+                    closeTimeout: 4000
+                });
+                toastBottom.open();
+            } else {
+                var toastBottom = app.toast.create({
+                    text: 'Failed to reset passwordh',
+                    position: 'bottom',
+                    closeTimeout: 4000
+                });
+                toastBottom.open();
+            }
+        },
+        error: function (xhr, textStatus, errorThrouwn) {
+            console.log(errorThrouwn);
+        }
+    });
+};
+
+
 //Login function
 
 app.login = function (formId) {
@@ -51,7 +88,7 @@ app.login = function (formId) {
             username: $$(formId).find('#username').val(),
             password: $$(formId).find('#password').val()
         },
-        url: "http://192.168.43.66/election_panel/api.php?action=login",
+        url: "http://localhost/election_panel/api.php?action=login",
         dataType: 'json',
         method: 'GET',
         beforeSend: function (xhr) {
@@ -61,7 +98,17 @@ app.login = function (formId) {
                 localStorage.election = JSON.stringify(data); //Store user login details
                 loginScreen.close(); //Login details are valid so closing login form.
 
-                app.getVoteSheet();
+                console.log(data.is_first_time_login);
+
+                if (data.is_first_time_login) {
+                    app.dialog.password('Reset password', function (password) {
+                        var login_details = JSON.parse(localStorage.election);
+                        app.resetPassword(login_details.user_id, password);
+                    });
+                } else {
+                    app.getVoteSheet();
+                }
+
             } else {
                 var toastBottom = app.toast.create({
                     text: 'Login failed, username or password is incorrect',
@@ -74,7 +121,6 @@ app.login = function (formId) {
         error: function (xhr, textStatus, errorThrouwn) {
             console.log(errorThrouwn);
         }
-
     });
 };
 //Get vote sheet
@@ -86,11 +132,12 @@ app.getVoteSheet = function () {
     var user_id = login_details.user_id;
 
     app.request({
-        url: "http://192.168.43.66/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&batch_id=' + batch_id + '&user_id=' + user_id,
+        url: "http://localhost/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&batch_id=' + batch_id + '&user_id=' + user_id,
         dataType: 'json',
         success: function (data, status, xhr) {
             console.log(data.candidates);
             console.log(data.user_has_voted);
+            console.log(data.election_is_active);
             var html = voteSheet(data);
             $$('#vote-sheet-content').html(html);
         },
@@ -110,7 +157,7 @@ app.castVotes = function () {
 
     app.request({
         data: app.form.convertToData('#vote-form'), //get votes
-        url: 'http://192.168.43.66/election_panel/api.php?action=cast_votes&user_id=' + user_id,
+        url: 'http://localhost/election_panel/api.php?action=cast_votes&user_id=' + user_id,
         dataType: 'json',
         success: function (data, status, xhr) {
             if (data.cast_status === "success") {
@@ -121,6 +168,7 @@ app.castVotes = function () {
                 });
                 toastBottom.open();
                 $$(".radio").css("visibility", "hidden"); // Hide all radio when a user has voted
+
             } else {
                 $$('#btn-vote').show(); // Since the vote was not succeffully, enable vote button
 
@@ -132,6 +180,7 @@ app.castVotes = function () {
                 toastBottom.open();
             }
         },
+
         error: function (xhr, textStatus, errorThrown) {
             console.log(errorThrown);
             console.log(textStatus);
@@ -159,15 +208,28 @@ function onHomeInit() {
     }
 
 
-    $$(document).on('click', '#btn-vote', function (e) {
-        $$(this).hide();//remove vote buttono so a user can't vote more than once
-        app.castVotes();
+    $$(document).on('click', '#btn-vote', function () {
+        var votes = app.form.convertToData('#vote-form');
+        var count = Object.keys(votes).length;
+
+        if (count === 3) {
+            app.castVotes();
+            $$(this).hide();//remove vote buttono so a user can't vote more than once
+        } else {
+            var toast = app.toast.create({
+                text: 'Please vote for all candidates',
+                position: 'bottom',
+                closeTimeout: 6000
+            });
+            toast.open();
+        }
+
 //        console.log(JSON.stringify(form));
     });
 
     $$('#btn-logout').on('click', function () {
-          localStorage.removeItem('election');
-          loginScreen.open(); //Show login screen
+        localStorage.removeItem('election');
+        loginScreen.open(); //Show login screen
     });
 
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2018 at 10:26 PM
+-- Generation Time: Jun 05, 2018 at 10:19 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 5.6.34
 
@@ -40,7 +40,7 @@ CREATE TABLE `batches` (
 
 INSERT INTO `batches` (`id`, `batch_name`, `course_id`) VALUES
 (3, 'First year 2017/18', 1),
-(4, 'Second year 2017/18', 1),
+(4, 'Second year 201718', 1),
 (5, 'Third year 2017/18', 1);
 
 -- --------------------------------------------------------
@@ -161,15 +161,18 @@ INSERT INTO `courses` (`id`, `course_name`, `years_to_complete`, `faculty_id`) V
 
 CREATE TABLE `election_period` (
   `id` int(10) NOT NULL,
-  `period` varchar(255) NOT NULL
+  `period` varchar(255) NOT NULL,
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL,
+  `is_active` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `election_period`
 --
 
-INSERT INTO `election_period` (`id`, `period`) VALUES
-(1, 'Election 2018');
+INSERT INTO `election_period` (`id`, `period`, `start_time`, `end_time`, `is_active`) VALUES
+(1, 'Election 2018', '2018-06-05 09:00:00', '2019-06-12 07:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -191,7 +194,7 @@ INSERT INTO `faculties` (`id`, `faculty_name`) VALUES
 (2, 'Faculty of Law'),
 (3, 'Faculty of social science'),
 (4, 'School of Business'),
-(5, 'School of Public Administration and management');
+(5, 'school  of public administration and management');
 
 -- --------------------------------------------------------
 
@@ -266,34 +269,35 @@ INSERT INTO `students` (`id`, `reg_number`, `first_name`, `last_name`, `admissio
 CREATE TABLE `users` (
   `id` int(10) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `is_first_time_login` tinyint(4) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`) VALUES
-(1, 'joy', '7c4a8d09ca3762af61e59520943dc26494f8941b'),
-(2, 'student1', '2439e0457579ab4fd962cbd80b9206aca794cc38'),
-(3, 'student2', 'c241e7b7811ffbe3faba5b193717a46f9643eab1'),
-(4, 'student3', '32be4bedbd3a8539503a9bbbe72f9d84956affa1'),
-(5, 'student4', 'student4'),
-(6, 'admin', 'admin'),
-(7, 'student15', 'student15'),
-(8, 'student16', 'student16'),
-(9, 'student17', 'student17'),
-(10, 'student5', 'student5'),
-(11, 'student6', 'student6'),
-(12, 'student7', 'student7'),
-(13, 'student8', 'student8'),
-(14, 'student9', 'student9'),
-(15, 'student10', 'student10'),
-(16, 'student11', 'student11'),
-(17, 'student12', 'student12'),
-(18, 'student13', 'student13'),
-(19, 'student14', 'student14'),
-(20, 'student18', 'student18');
+INSERT INTO `users` (`id`, `username`, `password`, `is_first_time_login`) VALUES
+(1, 'joy', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1),
+(2, 'student1', '2439e0457579ab4fd962cbd80b9206aca794cc38', 1),
+(3, 'student2', 'c241e7b7811ffbe3faba5b193717a46f9643eab1', 1),
+(4, 'student3', '32be4bedbd3a8539503a9bbbe72f9d84956affa1', 1),
+(5, 'student4', 'student4', 1),
+(6, 'admin', 'admin', 1),
+(7, 'student15', 'student15', 1),
+(8, 'student16', 'student16', 1),
+(9, 'student17', 'student17', 1),
+(10, 'student5', 'student5', 1),
+(11, 'student6', 'student6', 1),
+(12, 'student7', 'student7', 1),
+(13, 'student8', 'student8', 1),
+(14, 'student9', 'student9', 1),
+(15, 'student10', 'student10', 1),
+(16, 'student11', 'student11', 1),
+(17, 'student12', 'student12', 1),
+(18, 'student13', 'student13', 1),
+(19, 'student14', 'student14', 1),
+(20, 'student18', 'student18', 1);
 
 -- --------------------------------------------------------
 
@@ -315,15 +319,9 @@ CREATE TABLE `votes` (
 --
 
 INSERT INTO `votes` (`id`, `user_id`, `positon_id`, `election_period_id`, `candidate_id`, `voted_at`) VALUES
-(1, 1, 1, 1, 1, '2018-06-01 10:28:31'),
-(2, 1, 2, 1, 3, '2018-06-01 10:28:31'),
-(3, 1, 3, 1, 17, '2018-06-01 10:28:31'),
-(4, 2, 1, 1, 1, '2018-06-01 20:35:57'),
-(5, 2, 3, 1, 18, '2018-06-01 20:35:57'),
-(6, 2, 2, 1, 3, '2018-06-01 20:35:57'),
-(7, 4, 1, 1, 1, '2018-06-01 20:54:40'),
-(8, 4, 2, 1, 9, '2018-06-01 20:54:40'),
-(9, 4, 3, 1, 17, '2018-06-01 20:54:40');
+(46, 1, 1, 1, 1, '2018-06-05 12:55:44'),
+(47, 1, 2, 1, 9, '2018-06-05 12:55:44'),
+(48, 1, 3, 1, 17, '2018-06-05 12:55:44');
 
 --
 -- Indexes for dumped tables
@@ -455,7 +453,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `votes`
 --
 ALTER TABLE `votes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- Constraints for dumped tables

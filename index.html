@@ -97,6 +97,7 @@
 
         <script id="vote-sheet" type="text/template7">
             <form id="vote-form">
+            <div>{{#unless election_is_active}} <p>Election peiod has ended</p> {{/unless}}</div>
             {{#each candidates}}
             <div class="card">
             <div class="card-header">{{@key}}</div>
@@ -143,7 +144,7 @@
             {{#unless user_has_voted}}
             <button id="btn-vote" class="button button-raised button-fill">Vote</button>
             {{/unless}}
-
+           
         </script>
 
         <!-- Path to Framework7 Library JS-->
