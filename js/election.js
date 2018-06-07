@@ -204,6 +204,8 @@ function onHomeInit() {
 //        }
     } else {
         //User not logged in
+        $$('#username').val("");
+        $$('#password').val("");
         loginScreen.open(); //Show login screen
     }
 
@@ -229,6 +231,8 @@ function onHomeInit() {
 
     $$('#btn-logout').on('click', function () {
         localStorage.removeItem('election');
+        $$('#username').val("");
+        $$('#password').val("");
         loginScreen.open(); //Show login screen
     });
 
