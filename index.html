@@ -57,6 +57,7 @@
                             <div class="page no-navbar no-toolbar no-swipeback election-login">
                                 <div class="page-content login-screen-content" style="background-color: #fff !important;">
                                     <div class="login-screen-title">Login</div>
+
                                     <form id="login-form" autocomplete="off">
                                         <div class="list">
                                             <ul>
@@ -80,7 +81,8 @@
                                         </div>
                                         <div class="list">
                                             <ul>
-                                                <li><a href="#" class="item-link list-button" id="btn-sign-in">Sign In</a></li>
+                                                <!--"item-link list-button"-->
+                                                <li><a href="#" class="button button-raised button-fill" id="btn-sign-in">Sign In</a></li>
                                             </ul>
                                             <!--                                            <div class="block-footer">
                                                                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -98,8 +100,8 @@
 
         <script id="vote-sheet" type="text/template7">
             <form id="vote-form">
-            <div>{{#unless election_is_active}} <p>Election peiod has ended</p> {{/unless}}</div>
-            {{#each candidates}}
+            <div>{{#unless election_is_active}} <p>Election period has ended</p> {{/unless}}</div>
+                    {{#each candidates}}
             <div class="card">
             <div class="card-header">{{@key}}</div>
             <div class="list media-list">
@@ -142,9 +144,9 @@
             {{/each}}
             </form>
 
-            {{#unless user_has_voted}}
+            {{#js_if "!this.user_has_voted && this.election_is_active"}}
             <button id="btn-vote" class="button button-raised button-fill">Vote</button>
-            {{/unless}}
+            {{/js_if }}
            
         </script>
 

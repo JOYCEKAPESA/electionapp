@@ -15,3 +15,11 @@
 .election-login{
     background-color: #fff;
 }
+
+#btn-sign-in {
+    width: 50%;
+    margin: 16px auto 16px auto;
+    box-sizing: border-box;
+    alignment-adjust:central; 
+}
+

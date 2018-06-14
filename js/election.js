@@ -50,7 +50,7 @@ app.resetPassword = function (userId, newPassword) {
             userId: userId,
             password: newPassword
         },
-        url: "http://192.168.43.66/election_panel/api.php?action=reset",
+        url: "http://localhost/election_panel/api.php?action=reset",
         dataType: 'json',
         method: 'GET',
         success: function (data, status, xhr) {
@@ -88,7 +88,7 @@ app.login = function (formId) {
             username: $$(formId).find('#username').val(),
             password: $$(formId).find('#password').val()
         },
-        url: "http://192.168.43.66/election_panel/api.php?action=login",
+        url: "http://localhost/election_panel/api.php?action=login",
         dataType: 'json',
         method: 'GET',
         beforeSend: function (xhr) {
@@ -132,12 +132,12 @@ app.getVoteSheet = function () {
     var user_id = login_details.user_id;
 
     app.request({
-        url: "http://192.168.43.66/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&batch_id=' + batch_id + '&user_id=' + user_id,
+        url: "http://localhost/election_panel/api.php?action=vote_sheet" + '&faculty_id=' + faculty_id + '&batch_id=' + batch_id + '&user_id=' + user_id,
         dataType: 'json',
         success: function (data, status, xhr) {
             console.log(data.candidates);
-            console.log(data.user_has_voted);
-            console.log(data.election_is_active);
+            console.log("user has voted " + data.user_has_voted);
+            console.log("Election is active " + data.election_is_active);
             var html = voteSheet(data);
             $$('#vote-sheet-content').html(html);
         },
@@ -157,7 +157,7 @@ app.castVotes = function () {
 
     app.request({
         data: app.form.convertToData('#vote-form'), //get votes
-        url: 'http://192.168.43.66/election_panel/api.php?action=cast_votes&user_id=' + user_id,
+        url: 'http://localhost/election_panel/api.php?action=cast_votes&user_id=' + user_id,
         dataType: 'json',
         success: function (data, status, xhr) {
             if (data.cast_status === "success") {
@@ -195,13 +195,9 @@ function onHomeInit() {
 
 //Check if a user is already logged in
     if (localStorage.election) {
-//        var login_details = JSON.parse(localStorage.election) //get ligin details from web storage
-//        if (login_details.login_status === 'success') {
         //user is logged in, show candidates
         app.getVoteSheet();
-//        } else {
-//          
-//        }
+
     } else {
         //User not logged in
         $$('#username').val("");
